@@ -7,7 +7,7 @@ decouple the multi-stage stochastic MINLP into deterministic per-frame MINLP sub
 
 ## About our works
 
-1. Suzhi Bi, Liang Huang, and Ying-jun Angela Zhang, ''[Lyapunov-guided Deep Reinforcement Learning for Stable Online Computation Offloading in Mobile-Edge Computing Networks]((https://ieeexplore.ieee.org/document/9449944))'', *IEEE Transactions on Wireless Communications*, 2021, doi:10.1109/TWC.2021.3085319.
+1. Suzhi Bi, Liang Huang, and Ying-jun Angela Zhang, ``[Lyapunov-guided Deep Reinforcement Learning for Stable Online Computation Offloading in Mobile-Edge Computing Networks](https://ieeexplore.ieee.org/document/9449944)'', *IEEE Transactions on Wireless Communications*, 2021, doi:10.1109/TWC.2021.3085319.
 
 ## About authors
 

@@ -3,7 +3,13 @@
 *Lyapunov-guided Deep Reinforcement Learning for Stable Online Computation Offloading in Mobile-Edge Computing Networks*
 
 Python code to reproduce LyDROO algorithm [1], which is an online computation offloading algorithm to maximize the network data processing capability subject to the long-term data queue stability and average power constraints. It applies Lyapunov optimization to
-decouple the multi-stage stochastic MINLP into deterministic per-frame MINLP subproblems and solves each subproblem via [DROO](https://github.com/revenol/DROO) algorithm.
+decouple the multi-stage stochastic MINLP into deterministic per-frame MINLP subproblems and solves each subproblem via [DROO](https://github.com/revenol/DROO) algorithm. It includes:
+
+- [memory.py](memory.py): the codes of Deep Reinforcement Learning
+
+- [ResourceAllocation](ResourceAllocation.py): Algorithms for resource allocation
+
+- [LyDROO.py](LyDROO.py): run this file for LyDROO
 
 ## About our works
 
@@ -20,4 +26,4 @@ decouple the multi-stage stochastic MINLP into deterministic per-frame MINLP sub
 
 ## How the code works
 
-- For LyDROO algorithm, run the file, [main.py](main.py)
+- For LyDROO algorithm, run the file, [LyDROO.py](LyDROO.py)

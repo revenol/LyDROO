@@ -5,13 +5,13 @@
 PyTorch code to reproduce LyDROO algorithm [1], which is an online computation offloading algorithm to maximize the network data processing capability subject to the long-term data queue stability and average power constraints. It applies Lyapunov optimization to
 decouple the multi-stage stochastic MINLP into deterministic per-frame MINLP subproblems and solves each subproblem via [DROO](https://github.com/revenol/DROO) algorithm. It includes:
 
-- [memory.py](memory.py): the codes of Deep Reinforcement Learning.
+- [memory.py](memory.py): the codes of Deep Reinforcement Learning based on fully connected neural networks (DNN) implemented on PyTorch.
 - [memoryTF2conv.py](memoryTF2conv.py): the codes of Deep Reinforcement Learning based on convolutional neural networks (CNN) implemented on Tenforflow 2.
 
 - [ResourceAllocation](ResourceAllocation.py): Algorithms for resource allocation.
 
-- [LyDROO.py](LyDROO.py): run this file for LyDROO.
-- [LyDROOwithTF2conv.py](LyDROOwithTF2conv.py): run this file for LyDROO based on CNN implemented on Tenforflow 2.
+- [LyDROO.py](LyDROO.py): run this file for LyDROO with DNN implemented on PyTorch.
+- [LyDROOwithTF2conv.py](LyDROOwithTF2conv.py): run this file for LyDROO with CNN implemented on Tenforflow 2.
 
 ## About our works
 
@@ -28,4 +28,4 @@ decouple the multi-stage stochastic MINLP into deterministic per-frame MINLP sub
 
 ## How the code works
 
-- For LyDROO algorithm, run the file, [LyDROO.py](LyDROO.py)
+- For LyDROO algorithm, run the file, [LyDROO.py](LyDROO.py) or [LyDROOwithTF2conv.py](LyDROOwithTF2conv.py). In general, LyDROO (CNN) converges much faster than LyDROO (DNN).

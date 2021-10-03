@@ -1,6 +1,6 @@
 #  #################################################################
 #
-#  This file contains the main code of LyDROO. 
+#  This file contains the main code of LyDROO.
 #
 #  References:
 #  [1] Suzhi Bi, Liang Huang, Hui Wang, and Ying-Jun Angela Zhang, "Lyapunov-guided Deep Reinforcement Learning for Stable Online Computation Offloading in Mobile-Edge Computing Networks," IEEE Transactions on Wireless Communications, 2021, doi:10.1109/TWC.2021.3085319.
@@ -14,7 +14,7 @@
 import scipy.io as sio                     # import scipy.io for .mat file I/
 import numpy as np                         # import numpy
 
-# Implementated based on the PyTorch 
+# Implementated based on the PyTorch
 from memory import MemoryDNN
 # import the resource allocation function
 # replace it with your algorithm when applying LyDROO in other problems
@@ -43,12 +43,12 @@ def plot_rate( rate_his, rolling_intv = 50, ylabel='Normalized Computation Rate'
 
 # generate racian fading channel with power h and Line of sight ratio factor
 # replace it with your own channel generations when necessary
-def racian_mec(h,factor): 
+def racian_mec(h,factor):
     n = len(h)
     beta = np.sqrt(h*factor) # LOS channel amplitude
     sigma = np.sqrt(h*(1-factor)/2) # scattering sdv
     x = np.multiply(sigma*np.ones((n)),np.random.randn(n)) + beta*np.ones((n))
-    y = np.multiply(sigma*np.ones((n)),np.random.randn(n))  
+    y = np.multiply(sigma*np.ones((n)),np.random.randn(n))
     g = np.power(x,2) +  np.power(y,2)
     return g
 
@@ -56,10 +56,10 @@ def racian_mec(h,factor):
 if __name__ == "__main__":
     '''
         LyDROO algorithm composed of four steps:
-            1) 'Actor module' 
-            2) 'Critic module' 
-            3) 'Policy update module' 
-            4) ‘Queueing module’ of 
+            1) 'Actor module'
+            2) 'Critic module'
+            3) 'Policy update module'
+            4) ‘Queueing module’ of
     '''
 
     N =10                     # number of users
@@ -68,28 +68,28 @@ if __name__ == "__main__":
     decoder_mode = 'OPN'    # the quantization mode could be 'OP' (Order-preserving) or 'KNN' or 'OPN' (Order-Preserving with noise)
     Memory = 1024          # capacity of memory structure
     Delta = 32             # Update interval for adaptive K
-    CHFACT = 10**10       # The factor for scaling channel value   
+    CHFACT = 10**10       # The factor for scaling channel value
     energy_thresh = np.ones((N))*0.08; # energy comsumption threshold in J per time slot
-    nu = 1000; # energy queue factor;    
+    nu = 1000; # energy queue factor;
     w = [1.5 if i%2==0 else 1 for i in range(N)] # weights for each user
     V = 20
-    
+
     arrival_lambda = 3*np.ones((N)); # average data arrival, 3 Mbps per user
 
     print('#user = %d, #channel=%d, K=%d, decoder = %s, Memory = %d, Delta = %d'%(N,n,K,decoder_mode, Memory, Delta))
-    
-    # Load data
-    channel = np.zeros((n,N))
-    dataA = np.zeros((n,N))
-    
-    
+
+    # initialize data
+    channel = np.zeros((n,N)) # chanel gains
+    dataA = np.zeros((n,N))  # arrival data size
+
+
     # generate channel
     dist_v = np.linspace(start = 120, stop = 255, num = N);
     Ad = 3
     fc = 915*10**6
     loss_exponent = 3; # path loss exponent
     light = 3*10**8
-    h0 = np.ones((N))    
+    h0 = np.ones((N))
     for j in range(0,N):
         h0[j] = Ad*(light/4/math.pi/fc/dist_v[j])**(loss_exponent)
 
@@ -109,11 +109,11 @@ if __name__ == "__main__":
     Obj = np.zeros(n) # objective values after solving problem (26)
     energy = np.zeros((n,N)) # energy consumption
     rate = np.zeros((n,N)); # achieved computation rate
-    
-    
+
+
 
     for i in range(n):
-        
+
         if i % (n//10) == 0:
             print("%0.1f"%(i/n))
 
@@ -126,7 +126,7 @@ if __name__ == "__main__":
             K = min(max_k +1, N)
 
         i_idx = i
-             
+
 
         #real-time channel generation
         h_tmp = racian_mec(h0,0.3)
@@ -136,7 +136,7 @@ if __name__ == "__main__":
         # real-time arrival generation
         dataA[i,:] = np.random.exponential(arrival_lambda)
 
-        
+
         # 4) ‘Queueing module’ of LyDROO
         if i_idx > 0:
             # update queues
@@ -144,14 +144,14 @@ if __name__ == "__main__":
             # assert Q is positive due to float error
             Q[i_idx,Q[i_idx,:]<0] =0
             Y[i_idx,:] = np.maximum(Y[i_idx-1,:] + (energy[i_idx-1,:]- energy_thresh)*nu,0); # current energy queue
-            # assert Y is positive due to float error 
+            # assert Y is positive due to float error
             Y[i_idx,Y[i_idx,:]<0] =0
-        
+
         # scale Q and Y to close to 1; a deep learning trick
         nn_input =np.concatenate( (h, Q[i_idx,:]/10000,Y[i_idx,:]/10000))
-        
+
         # 1) 'Actor module' of LyDROO
-        # generate a batch of actions 
+        # generate a batch of actions
         m_list = mem.decode(nn_input, K, decoder_mode)
 
         r_list = [] # all results of candidate offloading modes
@@ -160,17 +160,17 @@ if __name__ == "__main__":
             # 2) 'Critic module' of LyDROO
             # allocate resource for all generated offloading modes saved in m_list
             r_list.append(Algo1_NUM(m,h,w,Q[i_idx,:],Y[i_idx,:],V))
-            v_list.append(r_list[-1][0]) 
+            v_list.append(r_list[-1][0])
 
         # record the index of largest reward
         k_idx_his.append(np.argmax(v_list))
 
-        
+
         # 3) 'Policy update module' of LyDROO
-        # encode the mode with largest reward        
+        # encode the mode with largest reward
         mem.encode(nn_input, m_list[k_idx_his[-1]])
         mode_his.append(m_list[k_idx_his[-1]])
-        
+
         # store max result
         Obj[i_idx],rate[i_idx,:],energy[i_idx,:]  = r_list[k_idx_his[-1]]
 

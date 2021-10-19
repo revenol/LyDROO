@@ -69,12 +69,12 @@ if __name__ == "__main__":
     Memory = 1024          # capacity of memory structure
     Delta = 32             # Update interval for adaptive K
     CHFACT = 10**10       # The factor for scaling channel value
-    energy_thresh = np.ones((N))*0.08; # energy comsumption threshold in J per time slot
-    nu = 1000; # energy queue factor;
+    energy_thresh = np.ones((N))*0.08 # energy comsumption threshold in J per time slot
+    nu = 1000 # energy queue factor;
     w = [1.5 if i%2==0 else 1 for i in range(N)] # weights for each user
     V = 20
 
-    arrival_lambda = 3*np.ones((N)); # average data arrival, 3 Mbps per user
+    arrival_lambda = 3*np.ones((N)) # average data arrival, 3 Mbps per user
 
     print('#user = %d, #channel=%d, K=%d, decoder = %s, Memory = %d, Delta = %d'%(N,n,K,decoder_mode, Memory, Delta))
 
@@ -84,10 +84,10 @@ if __name__ == "__main__":
 
 
     # generate channel
-    dist_v = np.linspace(start = 120, stop = 255, num = N);
+    dist_v = np.linspace(start = 120, stop = 255, num = N)
     Ad = 3
     fc = 915*10**6
-    loss_exponent = 3; # path loss exponent
+    loss_exponent = 3 # path loss exponent
     light = 3*10**8
     h0 = np.ones((N))
     for j in range(0,N):
@@ -108,7 +108,7 @@ if __name__ == "__main__":
     Y = np.zeros((n,N)) # virtual energy queue in mJ
     Obj = np.zeros(n) # objective values after solving problem (26)
     energy = np.zeros((n,N)) # energy consumption
-    rate = np.zeros((n,N)); # achieved computation rate
+    rate = np.zeros((n,N)) # achieved computation rate
 
 
 
@@ -120,9 +120,9 @@ if __name__ == "__main__":
         if i> 0 and i % Delta == 0:
             # index counts from 0
             if Delta > 1:
-                max_k = max(np.array(k_idx_his[-Delta:-1])%K) +1;
+                max_k = max(np.array(k_idx_his[-Delta:-1])%K) +1
             else:
-                max_k = k_idx_his[-1] +1;
+                max_k = k_idx_his[-1] +1
             K = min(max_k +1, N)
 
         i_idx = i
@@ -132,7 +132,7 @@ if __name__ == "__main__":
         h_tmp = racian_mec(h0,0.3)
         # increase h to close to 1 for better training; it is a trick widely adopted in deep learning
         h = h_tmp*CHFACT
-        channel[i,:] = h;
+        channel[i,:] = h
         # real-time arrival generation
         dataA[i,:] = np.random.exponential(arrival_lambda)
 
@@ -143,7 +143,7 @@ if __name__ == "__main__":
             Q[i_idx,:] = Q[i_idx-1,:] + dataA[i_idx-1,:] - rate[i_idx-1,:] # current data queue
             # assert Q is positive due to float error
             Q[i_idx,Q[i_idx,:]<0] =0
-            Y[i_idx,:] = np.maximum(Y[i_idx-1,:] + (energy[i_idx-1,:]- energy_thresh)*nu,0); # current energy queue
+            Y[i_idx,:] = np.maximum(Y[i_idx-1,:] + (energy[i_idx-1,:]- energy_thresh)*nu,0) # current energy queue
             # assert Y is positive due to float error
             Y[i_idx,Y[i_idx,:]<0] =0
 

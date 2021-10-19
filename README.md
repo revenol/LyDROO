@@ -10,8 +10,8 @@ decouple the multi-stage stochastic MINLP into deterministic per-frame MINLP sub
 
 - [ResourceAllocation](ResourceAllocation.py): Algorithms for resource allocation.
 
-- [LyDROO.py](LyDROO.py): run this file for LyDROO with DNN implemented on PyTorch.
-- [LyDROOwithTF2conv.py](LyDROOwithTF2conv.py): run this file for LyDROO with CNN implemented on Tenforflow 2.
+- [LyDROO.py](LyDROO.py): run this file for LyDROO with DNN implemented on PyTorch, namely LyDROO (DNN).
+- [LyDROOwithTF2conv.py](LyDROOwithTF2conv.py): run this file for LyDROO with CNN implemented on Tenforflow 2, namely LyDROO (CNN).
 
 ## Cite this work
 
@@ -41,4 +41,5 @@ decouple the multi-stage stochastic MINLP into deterministic per-frame MINLP sub
 
 ## How the code works
 
-- For LyDROO algorithm, run the file, [LyDROO.py](LyDROO.py) or [LyDROOwithTF2conv.py](LyDROOwithTF2conv.py). In general, LyDROO (CNN) converges much faster than LyDROO (DNN).
+- For LyDROO (DNN), run the file, [LyDROO.py](LyDROO.py). Please make sure that [PyTorch](https://pytorch.org/get-started/locally/) has been successfully installed before execution.
+- For LyDROO (CNN), run the file, [LyDROOwithTF2conv.py](LyDROOwithTF2conv.py). Please make sure that [Tensorflow 2](https://www.tensorflow.org/install) has been successfully installed before execution. In general, LyDROO (CNN) converges much faster than LyDROO (DNN).

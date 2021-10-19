@@ -49,7 +49,8 @@ decouple the multi-stage stochastic MINLP into deterministic per-frame MINLP sub
 
 
 - For LyDROO (CNN), run the file, [LyDROOwithTF2conv.py](LyDROOwithTF2conv.py). Please make sure that [Tensorflow 2](https://www.tensorflow.org/install) has been successfully installed before execution.
-|Training Loss            |  Average Data Queue |
+
+| Training Loss            |  Average Data Queue |
 | :-------------------------:|:-------------------------: |
 |![](img/trainingLossCNN.png)  |  ![](img/AverageDataQueueCNN.png) |
 

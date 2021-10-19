@@ -55,6 +55,6 @@ decouple the multi-stage stochastic MINLP into deterministic per-frame MINLP sub
 |![](img/trainingLossCNN.png)  |  ![](img/AverageDataQueueCNN.png) |
 
 - Remarks:
-  - You may arrive at similar but different results since both wireless channels and data arrivals are randomly generated (on lines 130-139 of [LyDROO.py](LyDROO.py) and [LyDROOwithTF2conv.py](LyDROOwithTF2conv.py)).
-  - LyDROO (DNN) requires more training frames before convegence, e.g., increase the time frame variable 'n' from 10000 to 20000 (on line 65 of [LyDROO.py](LyDROO.py)).
+  - You may arrive at similar but different results since both wireless channels and data arrivals are randomly generated on lines 130-139 of [LyDROO.py](LyDROO.py) or [LyDROOwithTF2conv.py](LyDROOwithTF2conv.py).
+  - LyDROO (DNN) requires more training frames before convegence, e.g., increase the time frame variable 'n' from 10000 to 20000 on line 65 of [LyDROO.py](LyDROO.py).
   - In general, LyDROO (CNN) converges much faster than LyDROO (DNN).

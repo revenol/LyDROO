@@ -42,4 +42,17 @@ decouple the multi-stage stochastic MINLP into deterministic per-frame MINLP sub
 ## How the code works
 
 - For LyDROO (DNN), run the file, [LyDROO.py](LyDROO.py). Please make sure that [PyTorch](https://pytorch.org/get-started/locally/) has been successfully installed before execution.
-- For LyDROO (CNN), run the file, [LyDROOwithTF2conv.py](LyDROOwithTF2conv.py). Please make sure that [Tensorflow 2](https://www.tensorflow.org/install) has been successfully installed before execution. In general, LyDROO (CNN) converges much faster than LyDROO (DNN).
+ Training Loss            |  Average Data Queue
+:-------------------------:|:-------------------------:
+![](img/trainingLoss.png)  |  ![](img/AverageDataQueue.png)
+
+
+- For LyDROO (CNN), run the file, [LyDROOwithTF2conv.py](LyDROOwithTF2conv.py). Please make sure that [Tensorflow 2](https://www.tensorflow.org/install) has been successfully installed before execution.
+Training Loss            |  Average Data Queue
+:-------------------------:|:-------------------------:
+![](img/trainingLossCNN.png)  |  ![](img/AverageDataQueueCNN.png)
+
+- Remarks:
+  - You may arrive at similar but different results since both wireless channels and data arrivals are randomly generated (on lines 130-139 of [LyDROO.py](LyDROO.py) and [LyDROOwithTF2conv.py](LyDROOwithTF2conv.py)).
+  - LyDROO (DNN) requires more training frames before convegence, e.g., increase the time frame variable 'n' from 10000 to 20000 (on line 65 of [LyDROO.py](LyDROO.py)).
+  - In general, LyDROO (CNN) converges much faster than LyDROO (DNN).

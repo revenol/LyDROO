@@ -36,8 +36,8 @@ def plot_rate( rate_his, rolling_intv = 50, ylabel='Normalized Computation Rate'
     mpl.style.use('seaborn')
     fig, ax = plt.subplots(figsize=(15,8))
 
-    plt.plot(np.arange(len(rate_array))+1, df.rolling(rolling_intv, min_periods=1).mean())
-    plt.fill_between(np.arange(len(rate_array))+1, df.rolling(rolling_intv, min_periods=1).min()[0], df.rolling(rolling_intv, min_periods=1).max()[0], alpha = 0.2)
+    plt.plot(np.arange(len(rate_array))+1, np.hstack(df.rolling(rolling_intv, min_periods=1).mean().values), 'b')
+    plt.fill_between(np.arange(len(rate_array))+1, np.hstack(df.rolling(rolling_intv, min_periods=1).min()[0].values), np.hstack(df.rolling(rolling_intv, min_periods=1).max()[0].values), color = 'b', alpha = 0.2)
     plt.ylabel(ylabel)
     plt.xlabel('Time Frames')
     plt.show()

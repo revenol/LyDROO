@@ -63,7 +63,7 @@ if __name__ == "__main__":
     '''
 
     N =10                     # number of users
-    n = 10000                     # number of time frames
+    n = 500                     # number of time frames
     K = N                   # initialize K = N
     decoder_mode = 'OPN'    # the quantization mode could be 'OP' (Order-preserving) or 'KNN' or 'OPN' (Order-Preserving with noise)
     Memory = 1024          # capacity of memory structure
@@ -176,7 +176,7 @@ if __name__ == "__main__":
 
 
     mem.plot_cost()
-    plot_rate(Q, 100, 'Data Queue of WDs')
+
     plot_rate(Q.sum(axis=1)/N, 100, 'Average Data Queue')
     plot_rate(energy.sum(axis=1)/N, 100, 'Average Energy Consumption')
 

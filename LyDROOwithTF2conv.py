@@ -177,7 +177,7 @@ if __name__ == "__main__":
 
     total_time=time.time()-start_time
     mem.plot_cost()
-    plot_rate(Q, 100, 'Data Queue of WDs')
+
     plot_rate(Q.sum(axis=1)/N, 100, 'Average Data Queue')
     plot_rate(energy.sum(axis=1)/N, 100, 'Average Energy Consumption')
 

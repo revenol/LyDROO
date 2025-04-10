@@ -140,7 +140,6 @@ class MemoryDNN:
         m_noisy = 1 / (1 + np.exp(-(m + np.random.normal(0, 1, len(m))))) # Sigmoid压缩
         return self.knm(m, k) + self.knm(m_noisy, k) 
 
-
     def knn(self, m, k = 1):
         # list all 2^N binary offloading actions
         if len(self.enumerate_actions) == 0:

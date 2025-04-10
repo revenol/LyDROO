@@ -137,13 +137,14 @@ class MemoryDNN:
         return m_list
     
     def opn(self, m, k= 1):
-        return self.knm(m,k)+self.knm(m+np.random.normal(0,1,len(m)),k)
+        m_noisy = 1 / (1 + np.exp(-(m + np.random.normal(0, 1, len(m))))) # Sigmoid压缩
+        return self.knm(m, k) + self.knm(m_noisy, k) 
 
     def knn(self, m, k = 1):
         # list all 2^N binary offloading actions
         if len(self.enumerate_actions) == 0:
             import itertools
-            self.enumerate_actions = np.array(list(map(list, itertools.product([0, 1], repeat=self.net[0]))))
+            self.enumerate_actions = np.array(list(map(list, itertools.product([0, 1], repeat=self.net[0]/3))))
 
         # the 2-norm
         sqd = ((self.enumerate_actions - m)**2).sum(1)
